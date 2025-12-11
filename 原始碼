@@ -1,22 +1,43 @@
 #include <iostream>
+#include <cstdlib> // rand(), srand
+#include <ctime>   // time()
 using namespace std;
 
 int main() {
-    int score1, score2, score3;
-    cout << "請輸入3次分數(0~100): ";
-    cin >> score1 >> score2 >> score3;
-    
-    double averageScore = (score1 + score2 + score3) / 3.0;
+    const int N = 10;
+    int arr[N];
 
-    if (score1 < 40 || score2 < 40 || score3 < 40) {
-        cout << "不及格\n";
-    } else if (averageScore >= 60) {
-        cout << "及格\n";
-    } else if (averageScore < 60) {
-        cout << "不及格\n";
+    srand(time(NULL));
+
+    // 產生隨機數列
+    cout << "原始隨機數列: ";
+    for (int i = 0; i < N; i++) {
+        arr[i] = rand() % 100;
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    // 選擇排序 (Selection Sort)
+    for (int i = 0; i < N - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < N; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+
+        // 交換
+        int temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
     }
 
-    cout << "你的平均為: " << averageScore;
+    // 顯示排序後的結果
+    cout << "排序後數列: ";
+    for (int i = 0; i < N; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 
     return 0;
 }
