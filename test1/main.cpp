@@ -1,17 +1,35 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
-int accumulate(int n);
-
 int main() {
-    int number = 100;
-    cout << "從1加到" << number << "總合為: " << accumulate(number);
-    return 0;
-}
+    int N = 5;
+    int arr[N];
 
-int accumulate(int n) {
-    if (n == 1) {
-        return 1;
+    srand(time(NULL));
+
+    cout << "random number: ";
+    for (int i = 0; i < N; i++) {
+        arr[i] = rand() % 100;
+        cout << arr[i] << " ";
     }
-    return n + accumulate(n - 1);
+
+    for (int i = 0; i < N-1; i++) {
+        for (int j = 0; j < N-1-i; j++) {
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+
+    cout << "排序後: ";
+    for (int i = 0; i < N; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
 }
